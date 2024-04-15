@@ -27,8 +27,7 @@ A script within a script within a script.
 **5/ Launch Type** - Depending on your workflow, chose Launch Agent or Daemon.
 
 Once you have gone through the process, the deployment script will be in the the shared folder (if you have not changed its location) 
-It is executable so I recommend testing it locally. Tweak it if needed. 
-NOTE the launch agent will work but it is basic so you may want to add options to be more suitable with what is needed.
+It is executable so I recommend testing it locally. Tweak it if needed. The launch agent will work but it is basic so you may want to add options to be more suitable with what is needed.
 
 When you are happy with it you can upload it in Jamf and scope it to the Macs.
 
@@ -36,4 +35,4 @@ NOTE for OS13+ deployment. The LaunchAgent and script will trigger a notificatio
 It is nicer for the end user to also deploy a configuration profile for the Login Item. 
 This will suppress the notification.
 
-Always up for suggestions. Please log an issue or pull request.
+Always up for suggestions and feedback. Please log an issue or pull request if you have any.
