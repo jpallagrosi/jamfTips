@@ -10,21 +10,21 @@ A script within a script within a script.
 
 **Instructions:**
 
-1 Script to be deployed - Build your script and save it on your device.
+**1/ Script to be deployed** - Build your script and save it on your device.
 
-2 A dream within a dream - Run inception.sh as sudo
+**2/ A dream within a dream** - Run inception.sh as sudo
 
-3 Naming all items - You’ll be prompt for 3 names: 
+**3/ Naming all items** - You’ll be prompt for 3 names: 
 - The name of the deployment script. The one that you will upload in Jamf.
 - The name of your script.
 - The name of the Launch Agent or Daemon. I recommend using the same name as the popup script to keep the workflow consistent.
 
-4 Locations - You’ll be prompt for 3 paths:
+**4/ Locations** - You’ll be prompt for 3 paths:
 - The path to your script.
 - The path to the location where you want to deploy it. /Library/Scripts/ is the default answer.
 - The path to the location where you want the deployment script to be printed. /Users/Shared/ is the default answer.
 
-5 Depending on your workflow, chose Launch Agent or Daemon.
+**5/ Launch Type** - Depending on your workflow, chose Launch Agent or Daemon.
 
 Once you have gone through the process, the deployment script will be in the the shared folder (if you have not changed its location) 
 It is executable so I recommend testing it locally. Tweak it if needed. 
