@@ -1,4 +1,4 @@
-inception.sh
+# inception.sh
 
 If you are an Apple Jamf admin, it is likely that you have built workflows involving a script that is triggered by a LaunchAgent or at least heard of it.
 
