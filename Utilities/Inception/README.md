@@ -4,11 +4,11 @@ If you are an Apple Jamf admin, it is likely that you have built workflows invol
 
 Every time I make one it always takes some time to get the script ready then having to build the workflow THEN the script to deploy it.
 
-The inception script will help you build the deployment script of the workflow to trigger your script. Or at least a first draft so you can tweak it should you need it.
+The inception script will help you build the deployment script of the workflow to trigger your script.
 
 A script within a script within a script.
 
-Instructions:
+**Instructions:**
 
 1 Script to be deployed - Build your script and save it on your device.
 
