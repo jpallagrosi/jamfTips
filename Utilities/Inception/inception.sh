@@ -3,7 +3,7 @@
 scriptPath=$(osascript -e 'text returned of (display dialog "Current location of the script to be automated" default answer "")')
 deploymentScriptName=$(osascript -e 'text returned of (display dialog "Enter the Deployment script name without the .sh: " default answer "")')
 deploymentScriptLoc=$(osascript -e 'text returned of (display dialog "Confirm the location of the Deployment script: " default answer "/Users/Shared")')
-scriptName=$(osascript -e 'text returned of (display dialog "Enter the name of the script to be automated without com. and .sh: " default answer "")')
+scriptName=$(osascript -e 'text returned of (display dialog "Enter the name of the script to be automated without .sh: " default answer "")')
 scriptLoc=$(osascript -e 'text returned of (display dialog "Confirm the location of '$scriptName'.sh on the client machine: " default answer "/Library/Scripts")')
 
 launchType=$(osascript -e 'choose from list {"LaunchAgent", "LaunchDaemon"} with title "Select Launch Type" default items {"LaunchAgent"}')
@@ -13,7 +13,7 @@ else
     launchDir="/Library/LaunchDaemons"
 fi
 
-launchName=$(osascript -e 'text returned of (display dialog "Enter the LaunchAgent or Daemon name without the .plist: " default answer "")')
+launchName=$(osascript -e 'text returned of (display dialog "Enter the LaunchAgent or Daemon name without the com. and .plist: " default answer "")')
 
 echo '#!/bin/bash
 
