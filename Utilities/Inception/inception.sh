@@ -54,5 +54,5 @@ exit 0' > "$deploymentScriptLoc/$deploymentScriptName.sh"
 finalScript="$deploymentScriptLoc/$deploymentScriptName.sh"
 
 scriptContent=$(cat "$scriptPath")
-sed -i '' '8r /dev/stdin' "$finalScript" <<< "$scriptContent"
+sed -i '' '6r /dev/stdin' "$finalScript" <<< "$scriptContent"
 chmod +x $finalScript
