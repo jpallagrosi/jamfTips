@@ -5,3 +5,4 @@ Also works for patching. A prompt will be displayed if the app is in use. Option
 The icon package is to be added to the policy to make the popup look nicer.
 
 Feel free to tweak the script to your needs.
+
