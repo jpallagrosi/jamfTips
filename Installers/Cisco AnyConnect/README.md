@@ -1,4 +1,4 @@
-Package up the installer in the /usr/tmp/ location. /
+Package up the installer in the /usr/local/ location. /
 The script will remove the lines from the disctribution file.
 
 Also works for patching. A prompt will be displayed if the app is in use. Options to defer. /
