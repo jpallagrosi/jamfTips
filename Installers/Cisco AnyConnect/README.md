@@ -1,4 +1,4 @@
-Package up the installer in the /usr/local/ location. \
+Package up the installer in the /usr/local/ directory. \
 The script will remove the lines from the disctribution file on the client machine and run the installer.
 
 Also works for patching. A prompt will be displayed if the app is in use. Options to defer. \
