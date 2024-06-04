@@ -4,13 +4,13 @@
 removeCounters() {
 for userName in `ls /Users | grep -v Shared`
 	do
-    rm -f /Users/$userName/Library/Counters/mailToOutlookCounter
-    done
+	rm -f /Users/$userName/Library/Counters/mailToOutlookCounter
+done
 }
 
 if [ -f /Users/$3/Library/Counters/mailToOutlookCounter ]
 	then 
-		echo "Removing counters"
+	echo "Removing counters"
         removeCounters
 fi
 
