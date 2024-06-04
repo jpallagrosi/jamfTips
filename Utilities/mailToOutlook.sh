@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# This section before the curl is for patching or re installing
+removeCounters() {
+for userName in `ls /Users | grep -v Shared`
+	do
+    rm -f /Users/$userName/Library/Counters/mailToOutlookCounter
+    done
+}
+
+if [ -f /Users/$3/Library/Counters/mailToOutlookCounter ]
+	then 
+		echo "Removing counters"
+        removeCounters
+fi
+
 # Double check the version in the URL
 curl https://macadmins.software/tools/MailToOutlook_2.1.pkg --output /usr/local/MailToOutlook_2.1.pkg
 
