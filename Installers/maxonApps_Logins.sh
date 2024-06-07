@@ -1,8 +1,73 @@
-#!/bin/bash
+#!/bin/zsh
 
-######################
-# READ LINES 15 & 17 # 
-######################
+########################################################################################################
+# PLEASE READ                                                                                          #
+# Add Maxon credentials in parameters 4 & 5                                                            #
+# Collect the Versions here https://www.maxon.net/en/downloads and add them to the following variables #
+# This script works for patching too. ZBrush needs to be deleted before updating                       #
+########################################################################################################
+
+maxonAppVER="2024.4.0"
+cinemaYEAR="2024"
+cinema4dVER="2024.4.1"
+zBrushVER="2024.0.4"
+redshiftVER="3.6.01_379ab502"
+magicBulletVER="2024.0.1"
+trapcodeVER="2024.0.2"
+universeVER="2024.1.0"
+VFXVER="2024.0.1"
+
+display_jamfHelper() {
+    deferral_choice=$(/Library/Application\ Support/JAMF/bin/jamfHelper.app/Contents/MacOS/jamfHelper \
+        -button1 "UPDATE" \
+        -timeout 1800 \
+        -defaultButton 1 \
+        -description "Please close the Maxon applications and update" \
+        -windowType utility \
+        -title "MAXON APPS UPDATE" \
+        -heading "SAVE YOUR WORK" \
+        -countdown \
+        -alignCountdown right \
+        -sound "/System/Library/Sounds/Submarine.aiff" \
+        -button2 "Defer")
+}
+
+deleteZbrush() {
+    pkill -f "ZBrush"
+    rm -rf "/Applications/Maxon ZBrush 2024"
+}
+
+deferralPopup() {
+    userDef=$(osascript -e 'set deferral to {"10 minutes", "30 minutes", "1 hour"}
+    set userDef to choose from list deferral with prompt "Select the deferral:" default items {"10 minutes"}')
+
+    echo "User chose $userDef"
+
+    case $userDef in
+        "10 minutes") result="600" ;;
+        "30 minutes") result="1800" ;;
+        "1 hour") result="3600" ;;
+        *) echo "Invalid selection"; exit 1 ;;
+    esac
+
+    echo "Sleeping for $result seconds"
+    sleep "$result"
+}
+
+while true; do
+    if pgrep -f "ZBrush" >/dev/null; then
+        display_jamfHelper
+        if [[ $? -eq 0 ]]; then
+            deleteZbrush
+            break
+        else
+            deferralPopup
+        fi
+    else
+        deleteZbrush
+        break
+    fi
+done
 
 # Set up logging
 log_file="/private/var/tmp/maxonInstall_log.txt"
@@ -11,19 +76,6 @@ exec > "$log_file" 2>&1
 log() {
     echo "$(date "+%Y-%m-%d %H:%M:%S"): $1"
 }
-
-#Add Credentials in parameters 4 & 5
-#Collect the versions from the installers here https://www.maxon.net/en/downloads and add them to the variables lines 18-26
-#The below will install everything. Remove the versions of what you don't need.
-maxonAppVER="2024.1.1"
-cinemaYEAR="2024"
-cinema4dVER="2024.2.0"
-zBrushVER="2024.0.1"
-redshiftVER="3.5.23_145d0ef3"
-magicBulletVER="2024.0.1"
-trapcodeVER="2024.0.2"
-universeVER="2024.1.0"
-VFXVER="2024.0.1"
 
 #For DMG files
 download_and_install() {
