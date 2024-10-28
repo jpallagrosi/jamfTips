@@ -7,7 +7,7 @@ expandedDirectory="/usr/local/VPN"
 linesToRemove="9,17d"
 fileToAppend="/usr/local/VPN/Distribution"
 installerPath="/usr/local/VPN.pkg"
-countExpected="1" # From version 5.1.6.103 and possibly all versions after that change to 2
+countExpected="2"
 maxAttempts=5
 attempt=0 
 
