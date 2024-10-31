@@ -5,6 +5,9 @@ expandedDirectory="/usr/local/VPN"
 linesToRemove="9,17d"
 fileToAppend="/usr/local/VPN/Distribution"
 installerPath="/usr/local/VPN.pkg"
+countExpected="2"
+maxAttempts=5
+attempt=0 
 
 display_jamfHelper() {
     deferral_choice=$(/Library/Application\ Support/JAMF/bin/jamfHelper.app/Contents/MacOS/jamfHelper \
@@ -18,12 +21,12 @@ display_jamfHelper() {
         -countdown \
         -alignCountdown right \
         -sound "/System/Library/Sounds/Submarine.aiff" \
-        -button2 "Defer")
+        -button2 "Defer")        
 }
 
 deferralPopup() {
     userDef=$(osascript -e 'set deferral to {"10 minutes", "30 minutes", "1 hour"}
-    set userDef to choose from list deferral with prompt "Select the deferral:" default items {"10 minutes"}')
+    set userDef to choose from list deferral with title "Cisco AnyConnect Update" with prompt "Select the deferral:" default items {"10 minutes"}')
 
     echo "User chose $userDef"
 
@@ -52,19 +55,27 @@ installCisco() {
 }
 
 while true; do
-    if pgrep -f "Cisco Secure Client" >/dev/null; then
-        display_jamfHelper
-        if [[ $? -eq 0 ]]; then
-		installCisco
-        break
-        else
-            deferralPopup
+    process_count=$(pgrep -fl "Cisco Secure Client" | wc -l) 
+    if [[ "$process_count" -eq $countExpected ]]; then
+        while [[ $attempt -lt $maxAttempts ]]; do
+            display_jamfHelper
+            if [[ $? -eq 0 ]]; then
+                installCisco
+                break
+            else
+                ((attempt++))
+                echo "Attempt $attempt of $maxAttempts..."
+                deferralPopup
+            fi
+        done
+        if [[ $attempt -ge $maxAttempts ]]; then
+            echo "Max deferral attempts reached. Exiting..."
+            exit 1
         fi
     else
-		installCisco
+        installCisco
         break
     fi
 done
-
 
 exit 0
