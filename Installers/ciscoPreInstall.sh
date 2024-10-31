@@ -28,7 +28,7 @@ display_jamfHelper() {
 
 deferralPopup() {
     userDef=$(osascript -e 'set deferral to {"10 minutes", "30 minutes", "1 hour"}
-    set userDef to choose from list deferral with prompt "Select the deferral:" default items {"10 minutes"}')
+    set userDef to choose from list deferral with title "Cisco AnyConnect Update" with prompt "Select the deferral:" default items {"10 minutes"}')
 
     echo "User chose $userDef"
 
@@ -58,19 +58,20 @@ installCisco() {
 
 while true; do
     process_count=$(pgrep -fl "Cisco Secure Client" | wc -l) 
-    
     if [[ "$process_count" -eq $countExpected ]]; then
-        display_jamfHelper
-        
-        if [[ $? -eq 0 ]]; then
-            installCisco
-            break
-        else
-            while [[ $attempt -lt $maxAttempts ]]; do
+        while [[ $attempt -lt $maxAttempts ]]; do
+            display_jamfHelper
+            if [[ $? -eq 0 ]]; then
+                installCisco
+                break
+            else
                 ((attempt++))
                 echo "Attempt $attempt of $maxAttempts..."
                 deferralPopup
-            done
+            fi
+        done
+        if [[ $attempt -ge $maxAttempts ]]; then
+            echo "Max deferral attempts reached. Exiting..."
             exit 1
         fi
     else
