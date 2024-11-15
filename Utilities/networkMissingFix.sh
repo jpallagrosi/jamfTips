@@ -2,7 +2,7 @@
 
 # In the instance of a Network dropping out of the list of known network you can re add it by removing and re installing the configuration profile.
 # Just need to creat a static group and place it as eclusion in the network Configuration Profile.
-# There is a script in my extension attribute to target the affected Macs only.
+# Check EA here github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/EA/networkCheck.sh to target the affected Macs only.
 
 clientID=""
 clientSecret="$4" # Policy parameter
