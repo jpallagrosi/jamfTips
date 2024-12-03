@@ -14,7 +14,7 @@ Please feel free to raise an Issue or a Pull request for comments and ideas.
 - duikAngela: After Effects plugin
 - jamfSync
 - maxonApps_Login: This will install the whole suite, make sure to remove the apps that are not required. The script also includes login licensing.
-- unrealEpic_multiUser: Details in the repository. \ 
+- unrealEpic_multiUser: Details in the repository. \
 - vectorworksPostInstall: Deploy the installer package in the shared folder. Details in the script.
 
 **Uninstallers:**
