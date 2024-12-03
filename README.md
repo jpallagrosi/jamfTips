@@ -11,8 +11,8 @@ Please feel free to raise an Issue or a Pull request for comments and ideas.
 **Installers:**
 - adobePremiereProAddon: Details in the repository. \
 - ciscoPreInstall: Details in the repository. \
-- duikAngela: After Effects plugin
-- jamfSync
+- duikAngela: After Effects plugin. \
+- jamfSync \
 - maxonApps_Login: This will install the whole suite, make sure to remove the apps that are not required. The script also includes login licensing.
 - unrealEpic_multiUser: Details in the repository. \
 - vectorworksPostInstall: Deploy the installer package in the shared folder. Details in the script.
