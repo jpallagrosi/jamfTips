@@ -2,7 +2,7 @@
 
 ########################################################################################################
 # PLEASE READ                                                                                          #
-# Add Maxon credentials in parameters 4 & 5                                                            #
+# Add Maxon credentials in parameters 4 (email) & 5 (pw)                                                            #
 # Collect the Versions here https://www.maxon.net/en/downloads and add them to the following variables #
 # This script works for patching too. ZBrush needs to be deleted before updating                       #
 ########################################################################################################
