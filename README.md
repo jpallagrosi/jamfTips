@@ -4,10 +4,10 @@ This page contains tools I have built overtime to help improve the efficianty of
 I am updating and tweaking it regularly. \
 Please feel free to raise an Issue or a Pull request for comments and ideas.
 
-**Extension Attributes:** \
+**Extension Attributes:**
 - networkCheck: Will report missing networks from the list of known networks. \
 
-**Installers:** \
+**Installers:**
 - adobePremiereProAddon: Details in the repository. \
 - ciscoPreInstall: Details in the repository. \
 - duikAngela: After Effects plugin
