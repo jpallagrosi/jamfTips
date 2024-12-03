@@ -6,15 +6,15 @@ I am updating and tweaking it regularly. \
 Please feel free to raise an Issue or a Pull request for comments and ideas.
 
 **Extension Attributes:**
-- [networkCheck](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/EA/networkCheck.sh): Will report missing networks from the list of known networks.
+- [networkCheck](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/EA/networkCheck.sh) Will report missing networks from the list of known networks.
 
 **Installers:**
-- adobePremiereProAddon: Details in the repository.
-- ciscoPreInstall: Details in the repository.
-- duikAngela: After Effects plugin.
-- jamfSync
-- maxonApps_Login: This will install the whole suite, make sure to remove the apps that are not required. The script also includes login licensing.
-- unrealEpic_multiUser: Details in the repository.
+- [adobePremiereProAddon](https://github.com/jpallagrosi/jamfUsefulScripts/tree/WIP/Installers/Adobe%20Premiere%20Pro%20Add-ons) Details in the repository.
+- [ciscoPreInstall](https://github.com/jpallagrosi/jamfUsefulScripts/tree/WIP/Installers/Cisco%20AnyConnect) Details in the repository.
+- [duikAngela](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/duikangela.sh) After Effects plugin.
+- [jamfSync](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/jamfSync.sh)
+- [maxonApps_Login](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/maxonApps_Logins.sh) This will install the whole suite, make sure to remove the apps that are not required. The script also includes login licensing.
+- [unrealEpic_multiUser](https://github.com/jpallagrosi/unrealEpic_multiUser) Details in the repository.
 - vectorworksPostInstall: Deploy the installer package in the shared folder. Details in the script.
 
 **Uninstallers:**
