@@ -1,4 +1,4 @@
-# jamfUsefulScripts
+# jamfTools
 
 This page contains tools I have built overtime to help improve the efficianty of a jamf instance. \
 I am updating and tweaking it regularly. \
