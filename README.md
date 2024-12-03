@@ -13,7 +13,7 @@ Please feel free to raise an Issue or a Pull request for comments and ideas.
 - [ciscoPreInstall](https://github.com/jpallagrosi/jamfUsefulScripts/tree/WIP/Installers/Cisco%20AnyConnect) Details in the repository.
 - [duikAngela](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/duikangela.sh) After Effects plugin.
 - [jamfSync](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/jamfSync.sh)
-- [maxonApps_Login](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/maxonApps_Logins.sh) This will install the whole suite, make sure to remove the apps that are not required. The script also includes login licensing.
+- [maxonApps_Login](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/maxonApps_Logins.sh) This will install the whole suite, make sure to remove the apps that are not required. The script includes login licensing.
 - [unrealEpic_multiUser](https://github.com/jpallagrosi/unrealEpic_multiUser) Details in the repository.
 - [vectorworksPostInstall](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/vectorworksPostInstall.sh) Deploy the installer package in the shared folder. Details in the script.
 
