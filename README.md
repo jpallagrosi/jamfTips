@@ -5,7 +5,7 @@ I am updating and tweaking it regularly. \
 Please feel free to raise an Issue or a Pull request for comments and ideas.
 
 **Extension Attributes:**
-- networkCheck: Will report missing networks from the list of known networks. \
+- networkCheck: Will report missing networks from the list of known networks.
 
 **Installers:**
 - adobePremiereProAddon: Details in the repository. \
