@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# This will present the user with the list of Adobe installed applications.
 adobeApps=()
 for dir in /Applications/Adobe*; do
     if [ -d "$dir" ]; then
