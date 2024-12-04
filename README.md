@@ -18,6 +18,7 @@ Please feel free to raise an issue or submit a pull request for comments and ide
 - [vectorworksPostInstall](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/vectorworksPostInstall.sh) Deploy the installer package in the shared folder. Details in the script.
 
 **Uninstallers:**
+- [adobeRemover_userinput](https://github.com/jpallagrosi/jamfTools/tree/WIP/Uninstallers/Adobe%20Remover) Details in the repository.
 - [removeAdobeByYear](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Uninstallers/removeAdobeByYear.sh)
 
 **Utilites:** 
