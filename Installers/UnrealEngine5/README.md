@@ -6,7 +6,7 @@ https://dev.epicgames.com/portal/en-US/university-for-the-creative-arts/service/
 FAB plugin (Essential for asset managment)
 - Install Epic Games Launcher with the installer from this page \
 https://store.epicgames.com/en-US/download  
-- Login on the app and install the engine from there (5.5.0 and Above). 
+- Login on the app and install the engine from there. 
 - Install FAB plugin also from the Launcher.
  <img width="500" alt="Screenshot 2024-12-13 at 11 49 42" src="https://github.com/user-attachments/assets/37ce02f6-3716-48a7-8a31-10ed55dbdc5f" />
 
