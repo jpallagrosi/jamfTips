@@ -1,9 +1,10 @@
 Unreal Engine v.5.5.1 
-Submit a request for a Developper account.
+Submit a request for a Developper account. /
 Download the installer from the Developer Portal https://dev.epicgames.com/portal/en-US/university-for-the-creative-arts/service/unreal-engine/downloads 
  
 FAB plugin (Essential for asset managment) 
-Install Epic Games Launcher with the installer from this page https://store.epicgames.com/en-US/download  
+Install Epic Games Launcher with the installer from this page /
+https://store.epicgames.com/en-US/download  
 Login on the app and install the engine from there (5.5.0 and Above). 
 Install FAB plugin also from the Launcher. 
  
