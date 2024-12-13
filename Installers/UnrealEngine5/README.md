@@ -28,3 +28,5 @@ Users will be able to manage the assets by login in Fab withing Unreal Engine wi
 <img width="500" alt="Screenshot 2024-12-13 at 12 16 07" src="https://github.com/user-attachments/assets/f4cb53ff-00b5-4725-9160-5546140b1812" />
 <img width="500" alt="Screenshot 2024-12-13 at 12 17 39" src="https://github.com/user-attachments/assets/85ea19e8-2227-47a0-aaf4-6bf1b52b0712" />
 <img width="500" alt="Screenshot 2024-12-13 at 12 20 34" src="https://github.com/user-attachments/assets/e4e7a38b-8be7-4590-8d12-443cd3cf43ed" />
+
+NOTE Unreal Engine requires Xcode to be able to run.
