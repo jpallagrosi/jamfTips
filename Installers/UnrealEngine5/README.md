@@ -29,4 +29,6 @@ Users will be able to manage the assets by login in Fab withing Unreal Engine wi
 <img width="500" alt="Screenshot 2024-12-13 at 12 17 39" src="https://github.com/user-attachments/assets/85ea19e8-2227-47a0-aaf4-6bf1b52b0712" />
 <img width="500" alt="Screenshot 2024-12-13 at 12 20 34" src="https://github.com/user-attachments/assets/e4e7a38b-8be7-4590-8d12-443cd3cf43ed" />
 
-NOTE Unreal Engine requires Xcode to be able to run.
+NOTES:
+- If you have used my install script from [HERE](https://github.com/jpallagrosi/unrealEpic_multiUser/blob/WIP/removeEpicUnreal_Content) the workflow must be removed prior to the above installation.
+- Unreal Engine requires Xcode to be able to run.
