@@ -1,4 +1,4 @@
-# jamfTools
+# jamfTips
 
 This page contains tools I have built overtime to help improve the efficianty of a jamf instance. \
 I update and tweak it regularly. \
