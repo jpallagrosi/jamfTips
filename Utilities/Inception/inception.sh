@@ -1,86 +1,95 @@
 #!/bin/bash
 
 #######################################################################################################################
-# inception script will help you build an automated workflow #
-# jpallagrosi 24/04/24 # More info here https://github.com/jpallagrosi/jamfUsefulScripts/tree/WIP/Utilities/Inception #
+# Inception Script: Automate deployment workflows with LaunchAgents/LaunchDaemons
+# Author: jpallagrosi | Last Updated: 24/04/24
+# More info: https://github.com/jpallagrosi/jamfUsefulScripts/tree/WIP/Utilities/Inception
 #######################################################################################################################
 
 collectInfo() {
-scriptPath=$(osascript -e 'text returned of (display dialog "Current location of the script to be automated" default answer "")')
-deploymentScriptName=$(osascript -e 'text returned of (display dialog "Enter the Deployment script name without the .sh: " default answer "")')
-deploymentScriptLoc=$(osascript -e 'text returned of (display dialog "Confirm the location of the Deployment script: " default answer "/Users/Shared")')
-scriptName=$(osascript -e 'text returned of (display dialog "Enter the name of the script to be automated without .sh: " default answer "")')
-scriptLoc=$(osascript -e 'text returned of (display dialog "Confirm the location of '$scriptName'.sh on the client machine: " default answer "/Library/Scripts")')
+    echo "Collecting user input..."
+    scriptPath=$(osascript -e 'text returned of (display dialog "Current location of the script to be automated" default answer "")')
+    deploymentScriptName=$(osascript -e 'text returned of (display dialog "Enter the Deployment script name without the .sh: " default answer "")')
+    deploymentScriptLoc=$(osascript -e 'text returned of (display dialog "Confirm the location of the Deployment script: " default answer "/Users/Shared")')
+    scriptName=$(osascript -e 'text returned of (display dialog "Enter the name of the script to be automated without .sh: " default answer "")')
+    scriptLoc=$(osascript -e 'text returned of (display dialog "Confirm the location of '$scriptName'.sh on the client machine: " default answer "/Library/Scripts")')
 
-launchType=$(osascript -e 'choose from list {"LaunchAgent", "LaunchDaemon"} with title "Select Launch Type" default items {"LaunchAgent"}')
-if [[ "$launchType" == "LaunchAgent" ]]; then
-    launchDir="/Library/LaunchAgents"
-else
-    launchDir="/Library/LaunchDaemons"
-fi
+    launchType=$(osascript -e 'choose from list {"LaunchAgent", "LaunchDaemon"} with title "Select Launch Type" default items {"LaunchAgent"}')
+    launchDir="/Library/${launchType}s"
 
-launchName=$(osascript -e 'text returned of (display dialog "Enter the LaunchAgent or Daemon name without the com. and .plist: " default answer "")')
+    launchName=$(osascript -e 'text returned of (display dialog "Enter the LaunchAgent or Daemon name without the com. and .plist: " default answer "")')
 }
 
-#####################################################################################################################################################################
+validateInputs() {
+    echo "Validating inputs..."
+    if [[ ! -f "$scriptPath" ]]; then
+        echo "Error: The script at $scriptPath does not exist."
+        exit 1
+    fi
+    if [[ ! -d "$deploymentScriptLoc" ]]; then
+        echo "Error: The directory $deploymentScriptLoc does not exist."
+        exit 1
+    fi
+    if [[ ! -d "$scriptLoc" ]]; then
+        echo "Error: The directory $scriptLoc does not exist."
+        exit 1
+    fi
+}
 
 buildWorkflow() {
-echo '#!/bin/bash
+    echo "Building the workflow..."
+    finalScript="$deploymentScriptLoc/$deploymentScriptName.sh"
 
-cd '"$scriptLoc"'
+    cat <<EOF > "$finalScript"
+#!/bin/bash
 
-tee <<'"'EOF'"' > "'${scriptName}'.sh"
+cd "$scriptLoc"
 
-EOF
+cat <<'SCRIPT' > "${scriptName}.sh"
+$(cat "$scriptPath")
+SCRIPT
 
-chmod +x '"$scriptLoc"'/'"${scriptName}.sh"'
+chmod +x "${scriptName}.sh"
 
-cd '"$launchDir"' || exit 1
-
-tee <<'EOF' > "com.'"${launchName}"'.plist"
+cat <<'PLIST' > "$launchDir/com.${launchName}.plist"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>'${launchName}'</string>
+    <string>com.${launchName}</string>
     <key>ProgramArguments</key>
     <array>
-        <string>'$scriptLoc'/'${scriptName}'.sh</string>
+        <string>${scriptLoc}/${scriptName}.sh</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
 </dict>
 </plist>
+PLIST
+
+chmod 644 "$launchDir/com.${launchName}.plist"
+chown root:wheel "$launchDir/com.${launchName}.plist"
 EOF
 
-chown root:wheel "com.'"${launchName}"'.plist"
-chmod 644 "com.'"${launchName}"'.plist"
-
-# launchctl bootstrap system "com.'"${launchName}"'.plist"
-
-exit 0' > "$deploymentScriptLoc/$deploymentScriptName.sh"
-
-finalScript="$deploymentScriptLoc/$deploymentScriptName.sh"
-
-scriptContent=$(cat "$scriptPath")
-sed -i '' '6r /dev/stdin' "$finalScript" <<< "$scriptContent"
-chmod +x $finalScript
+    chmod +x "$finalScript"
+    echo "Workflow created successfully at $finalScript"
 }
 
-#####################################################################################################################################################################
+testRun() {
+    echo "Testing the deployment script..."
+    local choice=$(osascript -e 'button returned of (display dialog "Click Yes to run the Deployment script." buttons {"No", "Yes"} default button 1)')
+    if [[ "$choice" == "Yes" ]]; then
+        sudo "$finalScript"
+    else
+        echo "Test run skipped."
+    fi
+}
 
+# EXECUTION
 collectInfo
-
+validateInputs
 buildWorkflow
+testRun
 
-testRun=$(osascript -e 'button returned of (display dialog "Click Yes to run the Deployment script." buttons {"No", "Yes"} default button 1)')
-
-if [ "$testRun" == "Yes" ]; then
-	sudo "$deploymentScriptLoc/./$deploymentScriptName.sh"
-    exit 0
-else
-	exit 0
-fi
-
-# -|> #
+exit 0
