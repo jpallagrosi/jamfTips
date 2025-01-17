@@ -14,7 +14,7 @@ Please feel free to raise an issue or submit a pull request for comments and ide
 - [duikAngela](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/duikangela.sh) After Effects plugin.
 - [jamfSync](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/jamfSync.sh)
 - [maxonApps_Login](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/maxonApps_Logins.sh) Installs the entire Maxon suite. Make sure to remove apps that are not required. The script includes login licensing.
-- [unrealEpic_multiUser](https://github.com/jpallagrosi/jamfTips/tree/WIP/Installers/UnrealEngine5) Details in the repository.
+- [Unreal Engine](https://github.com/jpallagrosi/jamfTips/tree/WIP/Installers/UnrealEngine5) Details in the repository.
 - [vectorworksPostInstall](https://github.com/jpallagrosi/jamfUsefulScripts/blob/WIP/Installers/vectorworksPostInstall.sh) Deploy the installer package in the shared folder. Details in the script.
 
 **Uninstallers:**
