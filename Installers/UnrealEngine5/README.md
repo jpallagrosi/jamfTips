@@ -29,5 +29,5 @@ Users will be able to manage the assets by login in Fab withing Unreal Engine wi
 <img width="500" alt="Screenshot 2024-12-13 at 12 20 34" src="https://github.com/user-attachments/assets/e4e7a38b-8be7-4590-8d12-443cd3cf43ed" />
 
 NOTES:
-- If you wish to make Unreal Engine available in the Epic Games Launcher use this workflow [unrealEpic_multiUser](https://github.com/jpallagrosi/unrealEpic_multiUser/blob/WIP) \
+- If you wish to make Unreal Engine available in the Epic Games Launcher use this workflow [unrealEpic_multiUser](https://github.com/jpallagrosi/unrealEpic_multiUser/blob/WIP)
 - Unreal Engine requires Xcode to be able to run.
