@@ -27,3 +27,5 @@ Then from these you will be able to print the bellow:
 - NoDependency_SmartGroups.txt
 
 If you need more infomation to be extracted or/and would know how to print the additional files let me know.
+
+<img width="452" height="349" alt="Screenshot 2025-11-21 at 11 38 40" src="https://github.com/user-attachments/assets/bb537504-731f-4f43-9a4c-209602233356" />
