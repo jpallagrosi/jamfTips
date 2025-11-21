@@ -1,4 +1,4 @@
-# jamfTips
+# Health Check & House keeping
 
 This script is built to extract information from the Jamf Pro Summary without the use of API. It will prompt you with which section to run e.g. unused_Packages, disabled_policies.
 
