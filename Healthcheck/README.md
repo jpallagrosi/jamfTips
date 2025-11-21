@@ -1,6 +1,9 @@
 # jamfTips
 
-This script is built to extract information from the Jamf Pro Summary without the use of API. It will prompt the user with which section to run e.g. unused_Packages, disabled_policies.
+This script is built to extract information from the Jamf Pro Summary without the use of API. It will prompt you with which section to run e.g. unused_Packages, disabled_policies.
+
+It will print out on a separate file the number of items along with the list of items. \
+'Report Information' will print out the information needed to build a Health Check.
 
 **Prerequisites:**
 Leave the Jamf Pro Summary with its default name 'jamf-pro-summary.txt' in the Downloads folder.
