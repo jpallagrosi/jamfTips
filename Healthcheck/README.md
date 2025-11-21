@@ -5,7 +5,7 @@ This script is built to extract information from the Jamf Pro Summary without th
 **Prerequisites:**
 Leave the Jamf Pro Summary with its default name 'jamf-pro-summary.txt' in the Downloads folder.
 
-Create the 4 files below that contains only the information needed in the Downloads folder.
+Create the 4 files below that contains only the information needed in the Downloads folder. \
 (I've not worked out how to create these automatically)
 
 - scripts.txt 
