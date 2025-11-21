@@ -1,13 +1,15 @@
 #!/bin/bash
-#
-# Combined Jamf reports menu script
-# - AppleScript choose-from-list single-select prompt
-# - Report Information (filtered jamf-pro-summary copy + NOTES appended)
-# - Disabled Policies
-# - Unused Packages
-# - Unused Scripts
-# - Unused Smart Groups
-#
+
+# Prerequisites: 
+# Leave the Jamf Pro Summary with its default name 'jamf-pro-summary.txt' in the Downloads folder.
+
+# Create the 4 files below that contains only the information needed in the Downloads folder.
+# (I've not worked out how to create these automatically)
+
+# scripts.txt (Between === Scripts === & === Directory bindings ===)
+# packages.txt (Between === Packages === & === Scripts ===)
+# policies.txt (Between === Policies === & === Configuration Profiles ===)
+# SmartGroups.txt (Between === Smart Computer Groups === & === Computer PreStage Enrollments ===)
 
 loggedInUser=$(ls -l /dev/console | awk '{print $3}')
 DOWNLOADS="/Users/${loggedInUser}/Downloads"
