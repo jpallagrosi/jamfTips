@@ -20,7 +20,7 @@ Create the 4 files below that contains only the information needed in the Downlo
 - SmartGroups.txt
 (Between === Smart Computer Groups === & === Computer PreStage Enrollments ===)
 
-Then from these, the script will be able to print the bellow:
+From these, the script will be able to generate the following files:
 - disabled_policies.txt
 - unused_packages.txt
 - unused_scripts.txt
