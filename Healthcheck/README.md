@@ -1,6 +1,6 @@
 # Health check & House keeping
 
-This script is designed to extract information from the Jamf Pro Summary without using the API. It will prompt you to choose which section you want to process (e.g. unused_Packages, disabled_policies)
+This script is designed to extract information from the Jamf Pro Summary. It will prompt you to choose which section you want to process (e.g. unused_Packages, disabled_policies)
 
 The script will generate separate output files containing both the number of items and the full list of items found. \
 'Report Information' will print the information required to build a Health Check.
