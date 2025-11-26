@@ -1,10 +1,9 @@
 #!/bin/bash
 
 # Prerequisites: 
-# Leave the Jamf Pro Summary with its default name 'jamf-pro-summary.txt' in the Downloads folder.
-
+# Place the Jamf Pro Summary with its default name 'jamf-pro-summary.txt' in the Downloads folder.
 # Create the 4 files below that contains only the information needed in the Downloads folder.
-# (I've not worked out how to create these automatically)
+# (I've not yet worked out how to generate these automatically)
 
 # scripts.txt (Between === Scripts === & === Directory bindings ===)
 # packages.txt (Between === Packages === & === Scripts ===)
@@ -28,7 +27,6 @@ UNUSED_PACKAGES="${DOWNLOADS}/unused_packages.txt"
 UNUSED_SCRIPTS="${DOWNLOADS}/unused_scripts.txt"
 UNUSED_SMARTGROUPS="${DOWNLOADS}/NoDependency_SmartGroups.txt"
 
-# The NOTES block (appended to Report Information)
 NOTES_BLOCK=$(cat <<'EOF'
 #### NOTES ####
 #API Roles 2 output / No client
