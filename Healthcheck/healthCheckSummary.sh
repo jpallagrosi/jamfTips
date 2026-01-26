@@ -34,6 +34,7 @@ NOTES_BLOCK=$(cat <<'EOF'
 #Double check policies
 
 #### STUFF I CAN'T SEE IN THE SUMMARY / TO BE COLLECTED IN JAMF ####
+#LDAP Configured
 #Using Automatic Device Enrollment
 #ADE Token Expiry
 #Apple Education Support
