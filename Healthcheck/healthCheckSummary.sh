@@ -2,7 +2,8 @@
 
 # Prerequisites: 
 # Place the Jamf Pro Summary with its default name 'jamf-pro-summary.txt' in the Downloads folder.
-# Create the 4 files below that contains only the information needed in the Downloads folder.
+# Use a text editor to create the 4 files below that contains only the information needed in the Downloads folder. 
+# NOTE textEdit app will add unwanted characters that will compromise the reports
 # (I've not yet worked out how to generate these automatically)
 
 # scripts.txt (Between === Scripts === & === Directory bindings ===)
