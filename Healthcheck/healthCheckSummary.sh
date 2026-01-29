@@ -6,7 +6,7 @@
 # NOTE textEdit app will add unwanted characters that will compromise the reports
 # (I've not yet worked out how to generate these automatically)
 
-# scripts.txt (Between === Scripts === & === Directory bindings ===)
+# scripts.txt (Between === Scripts === & === Printers ===)
 # packages.txt (Between === Packages === & === Scripts ===)
 # policies.txt (Between === Policies === & === Configuration Profiles ===)
 # SmartGroups.txt (Between === Smart Computer Groups === & === Computer PreStage Enrollments ===)
