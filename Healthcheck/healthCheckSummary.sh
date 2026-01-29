@@ -269,7 +269,7 @@ run_unused_scripts() {
 
   tempFile=$(mktemp)
 
-  allScriptsInDB=$(grep Name "$SCRIPTS_FILE" | sed -e 's/^.\{25\}//' | sed 's/\\$//' | sed 's/[[:space:]]*$//')
+  allScriptsInDB=$(grep Name "$SCRIPTS_FILE" | sed -E 's/^.*[.][. ]*//' | sed 's/\\$//' | sed 's/[[:space:]]*$//')
   policies=$(grep -v Heal "$POLICIES_FILE" | grep Script | sed -e 's/^.\{46\}//' | sed 's/\\$//' | sed 's/[[:space:]]*$//')
 
   IFS=$'\n'
