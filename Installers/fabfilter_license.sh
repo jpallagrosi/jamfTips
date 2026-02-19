@@ -703,3 +703,45 @@ log "FabFilter installation complete."
 rm -rf "$WORKDIR"
 
 exit 0
+
+#################################
+# License Clean up script
+#################################
+
+# #!/bin/zsh
+
+# set -euo pipefail
+# setopt nullglob
+
+# echo "Starting FabFilter user plist cleanup..."
+
+# for userHome in /Users/*; do
+
+#     # Skip if not a directory
+#     [[ -d "$userHome" ]] || continue
+
+#     userName=$(basename "$userHome")
+
+#     # Skip shared/system users
+#     case "$userName" in
+#         Shared|Guest|.localized)
+#             continue
+#         ;;
+#     esac
+
+#     prefsDir="$userHome/Library/Preferences"
+
+#     if [[ -d "$prefsDir" ]]; then
+#         for plist in "$prefsDir"/com.fabfilter*.plist; do
+#             if [[ -f "$plist" ]]; then
+#                 echo "Deleting $plist"
+#                 rm -f "$plist"
+#             fi
+#         done
+#     fi
+
+# done
+
+# echo "FabFilter user plist cleanup complete."
+
+# exit 0
