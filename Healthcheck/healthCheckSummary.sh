@@ -237,7 +237,7 @@ run_unused_packages() {
 
   tempFile=$(mktemp)
 
-  allPackagesinDB=$(grep Name "$PACKAGES_FILE" | sed -e 's/^.\{25\}//' | sed 's/\\$//' | sed 's/[[:space:]]*$//')
+  allPackagesinDB=$(grep Name "$PACKAGES_FILE" | sed -E 's/^.*[.][. ]*//' | sed 's/\\$//' | sed 's/[[:space:]]*$//')
   policies=$(grep -v Heal "$POLICIES_FILE" | grep Package | sed -e 's/^.\{46\}//' | sed 's/\\$//' | sed 's/[[:space:]]*$//')
 
   IFS=$'\n'
