@@ -25,6 +25,7 @@ SMARTGROUPS_FILE="${DOWNLOADS}/SmartGroups.txt"
 REPORT_COPY="${DOWNLOADS}/jamf-pro-summary copy.txt"
 DISABLED_POLICIES="${DOWNLOADS}/disabled_policies.txt"
 UNUSED_PACKAGES="${DOWNLOADS}/unused_packages.txt"
+MULTIUSE_PACKAGES="${DOWNLOADS}/packages_used_in_multiple_policies.txt"
 UNUSED_SCRIPTS="${DOWNLOADS}/unused_scripts.txt"
 UNUSED_SMARTGROUPS="${DOWNLOADS}/NoDependency_SmartGroups.txt"
 
@@ -90,12 +91,10 @@ check_file() {
 # Option handlers
 
 run_report_information() {
-  # Check summary file
   check_file "$SUMMARY_FILE" "Jamf Pro summary (jamf-pro-summary.txt)"
 
   cp "$SUMMARY_FILE" "$REPORT_COPY"
 
-  # lines to keep (prefixes)
   lines_to_keep_starting_with=(
     "	Installed Version"
     "	Tomcat Version"
@@ -131,83 +130,49 @@ run_report_information() {
 
   temp_file="$(mktemp)"
 
-  # Grep each prefix and append to temp
   for entry in "${lines_to_keep_starting_with[@]}"; do
-    # Escape regex metacharacters
     escaped=$(printf "%s\n" "$entry" | sed 's/[][\.*^$(){}?+|/]/\\&/g')
     grep -E "^${escaped}" "$REPORT_COPY" >> "$temp_file"
   done
 
-  # Remove lines ending with KB (macOS sed -i '' usage)
-  # If sed -i '' is not available (should be on macOS), fallback
   if sed -i '' '/KB$/d' "$temp_file" 2>/dev/null; then
     :
   else
     sed '/KB$/d' "$temp_file" > "${temp_file}.new" && mv "${temp_file}.new" "$temp_file"
   fi
 
-  # Move filtered temp to report copy
   mv "$temp_file" "$REPORT_COPY"
 
-  # Append NOTES block exactly as provided
   {
     echo ""
     echo "$NOTES_BLOCK"
   } >> "$REPORT_COPY"
 
-  osascript -e "display dialog \"Report information created:\\n${REPORT_COPY}\" buttons {\"OK\"} with title \"Report Complete\""
+  osascript -e "display dialog \"Report information created:\n${REPORT_COPY}\" buttons {\"OK\"} with title \"Report Complete\""
   echo "Report information saved to: $REPORT_COPY"
 }
 
 run_disabled_policies() {
   check_file "$POLICIES_FILE" "Policies (policies.txt)"
 
-  # Use awk to extract disabled policy names and create a tmp file containing just names
   tmp_disabled="$(mktemp)"
-  awk '
-  {
-    sub(/\r$/, "", $0)
-    if ($0 ~ /^[[:space:]]*Name/) {
-      name = $0
-      sub(/^[[:space:]]*Name[[:space:]]*\.*/,"",name)
-      sub(/^[[:space:]]*/,"",name)
-    }
-    if ($0 ~ /^[[:space:]]*Enabled[[:space:]]+/) {
-      enabled = $0
-      sub(/^[[:space:]]*Enabled[[:space:]]+/,"",enabled)
-      gsub(/^[[:space:]]+|[[:space:]]+$/,"",enabled)
-      if (tolower(enabled) == "false") {
-        print name
-        disabled++
-      }
-    }
-    if ($0 ~ /^[[:space:]]*ID[[:space:]]+[0-9]+/) {
-      total++
-    }
-  }
-  END {
-    if (total == "") total = 0
-    if (disabled == "") disabled = 0
-    print "Found " disabled " disabled policies out of " total " total policies." > "'"$tmp_disabled"'.summary"
-  }
-  ' "$POLICIES_FILE"
 
-  # We also extract the names printed to stdout from awk for disabled items (awk printed them earlier to stdout in previous version).
-  # For portability, repeat a simpler grep/awk pass to collect disabled names.
-  # Approach: walk file, capture Name and Enabled pairings.
   awk '
   BEGIN { name="" }
   {
     sub(/\r$/, "", $0)
+
     if ($0 ~ /^[[:space:]]*Name/) {
       name = $0
       sub(/^[[:space:]]*Name[[:space:]]*\.*/,"",name)
       sub(/^[[:space:]]*/,"",name)
     }
+
     if ($0 ~ /^[[:space:]]*Enabled[[:space:]]+/) {
       enabled = $0
       sub(/^[[:space:]]*Enabled[[:space:]]+/,"",enabled)
       gsub(/^[[:space:]]+|[[:space:]]+$/,"",enabled)
+
       if (tolower(enabled) == "false" && name != "") {
         print name
       }
@@ -215,7 +180,6 @@ run_disabled_policies() {
   }
   ' "$POLICIES_FILE" > "$tmp_disabled"
 
-  # Count and assemble final file with summary at top
   disabledCount=$(wc -l < "$tmp_disabled" | tr -d ' ')
   totalCount=$(grep -c "^[[:space:]]*ID[[:space:]]\+[0-9]" "$POLICIES_FILE" || true)
 
@@ -227,7 +191,7 @@ run_disabled_policies() {
 
   rm -f "$tmp_disabled"
 
-  osascript -e "display dialog \"Disabled policies report created:\\n${DISABLED_POLICIES}\" buttons {\"OK\"} with title \"Report Complete\""
+  osascript -e "display dialog \"Disabled policies report created:\n${DISABLED_POLICIES}\" buttons {\"OK\"} with title \"Report Complete\""
   echo "Disabled policies saved to: $DISABLED_POLICIES"
 }
 
@@ -235,32 +199,52 @@ run_unused_packages() {
   check_file "$PACKAGES_FILE" "Packages (packages.txt)"
   check_file "$POLICIES_FILE" "Policies (policies.txt)"
 
-  tempFile=$(mktemp)
+  tempUnused=$(mktemp)
+  tempMulti=$(mktemp)
 
   allPackagesinDB=$(grep Name "$PACKAGES_FILE" | sed -E 's/^.*[.][. ]*//' | sed 's/\\$//' | sed 's/[[:space:]]*$//')
+
   policies=$(grep -v Heal "$POLICIES_FILE" | grep Package | sed -e 's/^.\{46\}//' | sed 's/\\$//' | sed 's/[[:space:]]*$//')
 
   IFS=$'\n'
   for package in $allPackagesinDB; do
-    packageISInPolicy=$(echo "$policies" | grep -F -c "$package")
-    if [[ $packageISInPolicy -eq 0 ]]; then
-      echo "$package" >> "$tempFile"
+
+    packageCount=$(echo "$policies" | grep -F -x -c "$package")
+
+    # Unused packages
+    if [[ $packageCount -eq 0 ]]; then
+      echo "$package" >> "$tempUnused"
     fi
+
+    # Packages used in multiple policies
+    if [[ $packageCount -gt 1 ]]; then
+      echo "$package ($packageCount policies)" >> "$tempMulti"
+    fi
+
   done
   unset IFS
 
-  unusedCount=$(wc -l < "$tempFile" | tr -d ' ')
+  unusedCount=$(wc -l < "$tempUnused" | tr -d ' ')
+  multiCount=$(wc -l < "$tempMulti" | tr -d ' ')
 
   {
     echo "Found $unusedCount unused packages."
     echo ""
-    cat "$tempFile"
+    sort "$tempUnused"
   } > "$UNUSED_PACKAGES"
 
-  rm -f "$tempFile"
+  {
+    echo "Found $multiCount packages used in multiple policies."
+    echo ""
+    sort "$tempMulti"
+  } > "$MULTIUSE_PACKAGES"
 
-  osascript -e "display dialog \"Unused packages report created:\\n${UNUSED_PACKAGES}\" buttons {\"OK\"} with title \"Report Complete\""
+  rm -f "$tempUnused" "$tempMulti"
+
+  osascript -e "display dialog \"Reports created:\n${UNUSED_PACKAGES}\n\n${MULTIUSE_PACKAGES}\" buttons {\"OK\"} with title \"Report Complete\""
+
   echo "Unused packages saved to: $UNUSED_PACKAGES"
+  echo "Multi-use packages saved to: $MULTIUSE_PACKAGES"
 }
 
 run_unused_scripts() {
@@ -291,7 +275,7 @@ run_unused_scripts() {
 
   rm -f "$tempFile"
 
-  osascript -e "display dialog \"Unused scripts report created:\\n${UNUSED_SCRIPTS}\" buttons {\"OK\"} with title \"Report Complete\""
+  osascript -e "display dialog \"Unused scripts report created:\n${UNUSED_SCRIPTS}\" buttons {\"OK\"} with title \"Report Complete\""
   echo "Unused scripts saved to: $UNUSED_SCRIPTS"
 }
 
@@ -319,7 +303,7 @@ run_unused_smartgroups() {
 
   rm -f "$tempFile"
 
-  osascript -e "display dialog \"Unused smart groups report created:\\n${UNUSED_SMARTGROUPS}\" buttons {\"OK\"} with title \"Report Complete\""
+  osascript -e "display dialog \"Unused smart groups report created:\n${UNUSED_SMARTGROUPS}\" buttons {\"OK\"} with title \"Report Complete\""
   echo "Unused smart groups saved to: $UNUSED_SMARTGROUPS"
 }
 
